@@ -1,11 +1,15 @@
 class TeamPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope
+      scope.all
     end
 
     def create?
-      return true
+      true
+    end
+
+    def index?
+      true
     end
   end
 end

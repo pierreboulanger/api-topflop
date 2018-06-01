@@ -2,17 +2,10 @@ class FlopsController < ApplicationController
   before_action :set_team, :set_game
   before_action :set_flop, only: [:edit, :update]
 
-  # GET /flops/new
   def new
     @flop = Flop.new
   end
 
-  # GET /flops/1/edit
-  def edit
-  end
-
-  # POST /flops
-  # POST /flops.json
   def create
     @flop = Flop.new(flop_params)
 
@@ -27,8 +20,9 @@ class FlopsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /flops/1
-  # PATCH/PUT /flops/1.json
+  def edit
+  end
+
   def update
     respond_to do |format|
       if @flop.update(flop_params)
@@ -43,6 +37,15 @@ class FlopsController < ApplicationController
 
 
   private
+
+    def set_team
+      @team = Team.find(current_user.team_id)
+    end
+
+    def set_game
+      @game = Game.find(params["game_id"])
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_flop
       @flop = Flop.find(params[:id])

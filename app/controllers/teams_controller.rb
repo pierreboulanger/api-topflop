@@ -1,30 +1,25 @@
 class TeamsController < ApplicationController
   before_action :set_team, only: [:show, :edit, :update, :destroy]
 
-  # GET /teams
-  # GET /teams.json
   def index
     @teams = Team.all
+    # authorize @teams
   end
 
-  # GET /teams/1
-  # GET /teams/1.json
   def show
   end
 
-  # GET /teams/new
   def new
     @team = Team.new
+    # authorize @team
   end
 
-  # GET /teams/1/edit
   def edit
   end
 
-  # POST /teams
-  # POST /teams.json
   def create
     @team = Team.new(team_params)
+    # authorize @team
 
     respond_to do |format|
       if @team.save
@@ -37,8 +32,6 @@ class TeamsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /teams/1
-  # PATCH/PUT /teams/1.json
   def update
     respond_to do |format|
       if @team.update(team_params)
@@ -51,8 +44,6 @@ class TeamsController < ApplicationController
     end
   end
 
-  # DELETE /teams/1
-  # DELETE /teams/1.json
   def destroy
     @team.destroy
     respond_to do |format|
@@ -65,10 +56,10 @@ class TeamsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_team
       @team = Team.find(params[:id])
+      # authorize @team
     end
 
     def find_games
-      set_team
       @games = @team.games
     end
 

@@ -29,31 +29,3 @@ class Api::V1::BaseController < ActionController::API
     render json: response, status: :internal_server_error
   end
 end
-1ST ENDPOINT: INDEX
-GET /api/v1/restaurants  # unauthenticated
-# config/routes.rb
-Rails.application.routes.draw do
-  # [...]
-  namespace :api, defaults: { format: :json } do
-    namespace :v1 do
-      resources :restaurants, only: [ :index ]
-    end
-  end
-end
-CONTROLLER (1)
-touch app/controllers/api/v1/restaurants_controller.rb
-mkdir -p app/views/api/v1/restaurants
-2ND ENDPOINT: SHOW
-GET /api/v1/restaurants/:id # unauthenticated
-# config/routes.rb
-Rails.application.routes.draw do
-  # [...]
-  namespace :api, defaults: { format: :json } do
-    namespace :v1 do
-      resources :restaurants, only: [ :index, :show ]
-    end
-  end
-end
-3RD ENDPOINT: UPDATE
-PATCH /api/v1/restaurants/:id # authenticated
-HAPPY API-ING!

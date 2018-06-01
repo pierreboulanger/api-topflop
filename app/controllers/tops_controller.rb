@@ -1,34 +1,17 @@
 class TopsController < ApplicationController
-  before_action :set_top, only: [:show, :edit, :update, :destroy]
+  before_action :set_top, only: [:edit, :update, :destroy]
 
-  # GET /tops
-  # GET /tops.json
-  def index
-    @tops = Top.all
-  end
 
-  # GET /tops/1
-  # GET /tops/1.json
-  def show
-  end
-
-  # GET /tops/new
   def new
     @top = Top.new
   end
 
-  # GET /tops/1/edit
-  def edit
-  end
-
-  # POST /tops
-  # POST /tops.json
   def create
     @top = Top.new(top_params)
 
     respond_to do |format|
       if @top.save
-        format.html { redirect_to @top, notice: 'Top was successfully created.' }
+        format.html { redirect_to team_game_path, notice: 'Top was successfully created.' }
         format.json { render :show, status: :created, location: @top }
       else
         format.html { render :new }
@@ -37,8 +20,9 @@ class TopsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /tops/1
-  # PATCH/PUT /tops/1.json
+  def edit
+  end
+
   def update
     respond_to do |format|
       if @top.update(top_params)
@@ -62,13 +46,57 @@ class TopsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_top
-      @top = Top.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def top_params
-      params.require(:top).permit(:game_id, :user_id, :comment, :topplayer)
+
+  def set_team
+    @team = Team.find(current_user.team_id)
+  end
+
+  def set_game
+    @game = Game.find(params["game_id"])
+  end
+
+  def set_flop
+    @flop = Flop.new
+  end
+
+  def top_params
+    params.require(:top).permit(:game_id, :user_id, :topplayer, :comment)
+  end
+
+  # USER HAS VOTED ???
+
+  def has_voted_top_player
+    @voted_top_player = false
+
+    current_user.tops.each do |top|
+      if top.game_id == @game.id
+        @voted_top_player = true
+        break
+      else
+        @voted_top_player = false
+      end
     end
+  end
+
+  def has_voted_flop_player
+    @voted_flop_player = false
+
+    current_user.flops.each do |flop|
+      if flop.game_id == @game.id
+        @voted_flop_player = true
+        break
+      else
+        @voted_flop_player = false
+      end
+    end
+  end
+
+
+  # FOR EDIT AND UPDATE !!!
+
+  def set_top_and_flop
+    @top = current_user.tops.last
+    @flop = current_user.flops.last
+  end
 end
