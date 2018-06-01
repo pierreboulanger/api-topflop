@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Game:</strong>
+  <%= @flop.game %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @flop.user %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @flop.comment %>
+</p>
+
+<p>
+  <strong>Flopplayer:</strong>
+  <%= @flop.flopplayer %>
+</p>
+
+<%= link_to 'Edit', edit_flop_path(@flop) %> |
+<%= link_to 'Back', flops_path %>

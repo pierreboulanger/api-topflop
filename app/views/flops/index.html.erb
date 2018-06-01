@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Flops</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Game</th>
+      <th>User</th>
+      <th>Comment</th>
+      <th>Flopplayer</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @flops.each do |flop| %>
+      <tr>
+        <td><%= flop.game %></td>
+        <td><%= flop.user %></td>
+        <td><%= flop.comment %></td>
+        <td><%= flop.flopplayer %></td>
+        <td><%= link_to 'Show', flop %></td>
+        <td><%= link_to 'Edit', edit_flop_path(flop) %></td>
+        <td><%= link_to 'Destroy', flop, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Flop', new_flop_path %>
